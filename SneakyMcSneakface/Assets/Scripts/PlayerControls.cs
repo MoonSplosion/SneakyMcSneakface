@@ -16,14 +16,14 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             tf.position += tf.up * Time.deltaTime * MoveSpeed;
         }
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.UpArrow))
         {
             tf.position -= tf.up * Time.deltaTime * MoveSpeed;
-            tf.Rotate(0,0,180);
+            //tf.Rotate(0,0,180);
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.UpArrow))
         {
