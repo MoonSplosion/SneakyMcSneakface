@@ -23,6 +23,8 @@ public class EnemyAI : MonoBehaviour
     public float restingHealRate = 1.0f;
     //Max HP
     public float MaxHP = 100.0f;
+
+    public float fieldOfView = 45f;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,7 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CanHear(GameManager.instance.Player);
         if (AIState == "Idle")
         {
             Idle();
@@ -101,4 +104,36 @@ public class EnemyAI : MonoBehaviour
     {
         return (Vector3.Distance(tf.position, Target.position) <= AIRange);
     }
+
+    public bool CanHear(GameObject target)
+    {
+        //get noisemaker from target
+        NoiseMaker noise = target.GetComponent<NoiseMaker>();
+        // if there is a noisemaker, potentially hear target
+        if (noise != null)
+        {
+            float adjustedVolumeDistance =
+                noise.volumeDistance - Vector3.Distance(tf.position, target.transform.position);
+            if (adjustedVolumeDistance > 0)
+            {
+                Debug.Log("I Heard the noise");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool CanSee(GameObject target)
+    {
+        Vector3 vectorToTarget = target.transform.position - tf.position;
+        //detect if target is inside fov
+        float angleToTarget = Vector3.Angle(vectorToTarget, tf.up);
+        //detect if target is in line if sight
+        if (angleToTarget <= fieldOfView)
+        {
+
+        }
+        return false;
+    }
 }
+
